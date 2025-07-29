@@ -32,3 +32,6 @@
 [submodule "pmodules/zsh-z"]
 	path = .zsh/.zprezto/pmodules/zsh-z
 	url = https://github.com/agkozak/zsh-z.git
+[submodule ".zsh/.zprezto"]
+	path = .zsh/.zprezto
+	url = https://github.com/PoOnesNerfect/prezto

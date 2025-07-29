@@ -85,11 +85,14 @@ cat >>~/.gitconfig <<'EOF'
 EOF
 
 # if exists, then backup
-if [ -f ../.zshenv ]; then
-    mv ../.zshenv ../.zshenv.bak
+if [ -f ~/.zshenv ]; then
+    mv ~/.zshenv ~/.zshenv.bak
 fi
-if [ -f ../.zshrc ]; then
-    mv ../.zshrc ../.zshrc.bak
+if [ -f ~/.zshrc ]; then
+    mv ~/.zshrc ~/.zshrc.bak
+fi
+if [ -f ~/.bashrc ]; then
+    mv ~/.bashrc ~/.bashrc.bak
 fi
 
 chsh -s $(which zsh)

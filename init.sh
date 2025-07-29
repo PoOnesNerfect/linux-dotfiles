@@ -45,34 +45,17 @@ sudo curl -fsSL https://fnm.vercel.app/install | bash
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 cd ~/.fzf && ./install
 
-# postgresql 
+# postgresql
 sudo apt install postgresql postgresql-contrib -y
 
 #
 # Cargo Packages
 #
-. "$HOME/.cargo/env"
-
-# bat
-cargo install --locked bat
-
-# ripgrep
-cargo install ripgrep
-
-# zellij
-cargo install --locked zellij
-
-# fd-find
-cargo install fd-find
-
-# exa
-cargo install exa
-
-# git-delta
-cargo install --locked git-delta
+chmod +x ./scripts/install-cargo-pkgs.sh
+./scripts/install-cargo-pkgs.sh
 
 # append to .gitconfig
-cat >> ~/.gitconfig << 'EOF'
+cat >>~/.gitconfig <<'EOF'
 [include]
     path = .config/delta/themes.gitconfig
 
@@ -116,3 +99,4 @@ chmod +x ./scripts/init-zsh.zsh
 stow .
 
 cd && lesskey
+

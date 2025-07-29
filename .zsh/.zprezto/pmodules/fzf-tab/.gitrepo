@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/Aloxaf/fzf-tab
+	branch = master
+	commit = bf3ef5588af6d3bf7cc60f2ad2c1c95bca216241
+	parent = ac3d0bedd3f58fcd056086acbbf92e12e1a495e6
+	method = merge
+	cmdver = 0.4.6

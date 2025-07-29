@@ -1,0 +1,59 @@
+#
+# Defines environment variables.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
+
+#
+# Custom envs
+#
+
+export PATH="$PATH:/usr/local/opt/fzf/bin:$HOME/.fzf/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# custom bin dir
+export PATH="$PATH:$HOME/.config/bin:$HOME/.config/yabai/bin"
+
+# custom shell commands
+# chmod +x $ZDOTDIR/bin/*
+export PATH="$ZDOTDIR/bin:$PATH"
+
+#
+# Gcloud
+#
+export PATH="$PATH:$HOME/google-cloud-sdk/bin"
+
+#
+# Krew (kubernetes plugin manager)
+#
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+#
+# Helix
+#
+export HELIX_RUNTIME="$HOME/projects/helix/runtime"
+
+#
+# make cross-compile to linux work for targeting x86_64-unknown-linux-gnu
+#
+# export CC_x86_64_unknown_linux_gnu=x86_64-unknown-linux-gnu-gcc
+# export CXX_x86_64_unknown_linux_gnu=x86_64-unknown-linux-gnu-g++
+# export AR_x86_64_unknown_linux_gnu=x86_64-unknown-linux-gnu-ar
+# export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=x86_64-unknown-linux-gnu-gcc
+
+#
+# secret envs
+#
+SECRETS_FILE=$ZDOTDIR/.zshenv.secrets
+if [ -f "$SECRETS_FILE" ]; then
+  # echo "$SECRETS_FILE exists"
+  source "$SECRETS_FILE"
+else
+  echo "$SECRETS_FILE missing"
+fi
+. "$HOME/.cargo/env"

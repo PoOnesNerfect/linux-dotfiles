@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/PoOnesNerfect/prezto.git
+	branch = master
+	commit = 36dc4c965bd96400a3193a0792b58a0758fa3707
+	parent = 46ca478531eca55dc942feedfe43d9a8c7eb0ce6
+	method = merge
+	cmdver = 0.4.6

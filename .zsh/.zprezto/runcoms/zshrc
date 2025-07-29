@@ -1,0 +1,161 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+# this matches files that start with a dot when you type cd and hit tab
+_comp_options+=(globdots)
+
+#
+# custom functions file
+#
+source $ZDOTDIR/.zsh_functions
+fpath=($ZDOTDIR/functions $fpath)
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
+autoload -U compinit; compinit
+
+#
+# custom aliases file
+#
+source $ZDOTDIR/.zsh_aliases
+
+#
+# fzf
+#
+source $ZDOTDIR/.zprezto/pmodules/fzf-tab/fzf-tab.plugin.zsh
+[ -f $ZDOTDIR/.fzf.zsh ] && source $ZDOTDIR/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg . \! \( -type d -path ./.git -prune \) \! -type d \! -name '\''*.tags'\'' -printf '\''%P\n'\'
+export FZF_COMPLETION_TRIGGER='**'
+# ^I is the tab key
+bindkey '^I' $fzf_default_completion
+# fzf completion
+# bindkey '^A' fzf-completion
+# cd into the selected directory
+bindkey '^A' fzf-cd-widget
+export FZF_DEFAULT_OPTS="
+--layout=reverse
+--info=inline
+--height=80%
+--multi
+--preview-window=right,hidden
+--preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--prompt='∼ ' --pointer='▶' --marker='✓'
+--bind '?:toggle-preview'
+--bind 'ctrl-a:select-all'
+--bind 'ctrl-y:execute-silent(echo {+} | pbcopy)'
+--bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'
+--bind 'ctrl-h:execute(${EDITOR:-nvim} {+})'
+--bind 'ctrl-d:half-page-down'
+--bind 'ctrl-u:half-page-up'
+--header='CTRL-H: open in nvim | CTRL-A: select all | CTRL-Y: copy | ?: preview'
+"
+
+# git
+alias git-remove-all-tags="zsh -c 'git tag -d \$(git tag -l) && git fetch && git push origin --delete \$(git tag -l) && git tag -d \$(git tag -l)'"
+
+#
+# VI KEYMAPPING
+#
+bindkey -M viins ';' vi-cmd-mode
+bindkey -M visual ';' vi-cmd-mode
+
+bindkey -M vicmd "u" undo
+bindkey -M vicmd "U" redo
+bindkey -M viins "$key_info[Control]z" undo
+bindkey -M viins "$key_info[Control]Z" redo
+
+bindkey -M vicmd "B" beginning-of-line
+bindkey -M vicmd "E" end-of-line
+bindkey -M vicmd "e" vi-forward-word
+bindkey -M vicmd "b" vi-backward-word
+
+bindkey -M viins "$key_info[Control]w" backward-kill-word
+bindkey -M vicmd "$key_info[Control]w" backward-kill-word
+
+#
+# Yank to the system clipboard
+#
+function vi-yank-xclip {
+  zle vi-yank
+  echo "$CUTBUFFER" | pbcopy -i
+}
+
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
+
+#
+# starship
+#
+eval "$(starship init zsh)"
+
+# fnm
+FNM_PATH="/home/leejac/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
+
+#
+# direv
+#
+eval "$(direnv hook zsh)"
+
+#
+# DOCKER FIX (https://stackoverflow.com/questions/44084846/cannot-connect-to-the-docker-daemon-on-macos/74148162#74148162)
+#
+# perma solution: sudo ln -s ~/Library/Containers/com.docker.docker/Data/docker.raw.sock /var/run/docker.sock
+# commented out for windows WSL
+# export DOCKER_HOST=unix:///Users/$(whoami)/Library/Containers/com.docker.docker/Data/docker.raw.sock
+
+#
+# gcloud
+#
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+#
+# kubectl
+#
+# [Install and Set Up kubectl on macOS | Kubernetes](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion)
+source <(kubectl completion zsh)
+
+# opam configuration
+[[ ! -r /Users/jacklee/.opam/opam-init/init.zsh ]] || source /Users/jacklee/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+#
+# bun
+#
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+# bun completions
+[ -s "/Users/jacklee/.bun/_bun" ] && source "/Users/jacklee/.bun/_bun"
+
+# Wasmer
+export WASMER_DIR="/Users/jacklee/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+# Browser via Windows from WSL
+export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+
+# # Rust set build target manually
+# export CARGO_BUILD_TARGET="x86_64-unknown-linux-gnu"
+
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/microsoft/servicefabric/bin/Fabric/Fabric.Code/"
+
+# pgrx
+export PGRX_HOME="/home/leejac/projects/work/pgrx"
+
+
+#
+# nvim
+#
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"

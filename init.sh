@@ -114,6 +114,6 @@ stow .
 
 chsh -s $(which zsh)
 chmod +x ./init-zsh.zsh
-./init-zsh.zsh
+source ./init-zsh.zsh
 
-source $HOME/.zshenv
+zsh

@@ -15,3 +15,7 @@ opt.whichwrap:append("l,h")
 opt.wrap = true
 opt.linebreak = true  -- Break lines at word boundaries
 opt.breakindent = true  -- Preserve indentation when wrapping
+
+if not vim.g.vscode then
+    vim.g.clipboard = "osc52";
+end

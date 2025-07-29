@@ -6,3 +6,5 @@ pkgs
 \.gitmodules
 \.gitattributes
 justfile
+init.sh
+scripts

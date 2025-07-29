@@ -31,7 +31,8 @@ source $HOME/.cargo/env
 sudo apt -y install stow
 
 # starship
-curl -sS https://starship.rs/install.sh | sh
+chmod +x ./scripts/install-starship.sh
+sudo ./scripts/install-starship.sh
 
 # nvim
 if lsb_release -r | grep '20.04'; then
@@ -46,13 +47,15 @@ rm nvim-linux-x86_64.tar.gz
 curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
 
 # direnv
-curl -sfL https://direnv.net/install.sh | bash
+chmod +x ./scripts/install-direnv.sh
+sudo ./scripts/install-direnv.sh
 
 # fnm
-curl -fsSL https://fnm.vercel.app/install | bash
+sudo curl -fsSL https://fnm.vercel.app/install | bash
 
 # fzf
-sudo apt install fzf -y
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 
 # postgresql 
 sudo apt install postgresql postgresql-contrib -y
@@ -78,9 +81,6 @@ cargo install exa
 
 # git-delta
 cargo install --locked git-delta
-
-# just
-cargo install --locked just
 
 # append to .gitconfig
 cat >> ~/.gitconfig << 'EOF'
@@ -125,5 +125,3 @@ chmod +x ./init-zsh.zsh
 ./init-zsh.zsh
 
 stow .
-
-zsh

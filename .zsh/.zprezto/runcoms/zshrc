@@ -148,3 +148,5 @@ export PGRX_HOME="/home/leejac/projects/work/pgrx"
 # nvim
 #
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

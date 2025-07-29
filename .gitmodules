@@ -1,0 +1,34 @@
+[submodule "autosuggestions/external"]
+	path = .zsh/.zprezto/modules/autosuggestions/external
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "history-substring-search/external"]
+	path = .zsh/.zprezto/modules/history-substring-search/external
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
+[submodule "syntax-highlighting/external"]
+	path = .zsh/.zprezto/modules/syntax-highlighting/external
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "completion/external"]
+	path = .zsh/.zprezto/modules/completion/external
+	url = https://github.com/zsh-users/zsh-completions.git
+[submodule "external/powerline"]
+	path = .zsh/.zprezto/modules/prompt/external/powerline
+	url = https://github.com/davidjrice/prezto_powerline.git
+[submodule "external/agnoster"]
+	path = .zsh/.zprezto/modules/prompt/external/agnoster
+	url = https://github.com/agnoster/agnoster-zsh-theme.git
+[submodule "external/pure"]
+	path = .zsh/.zprezto/modules/prompt/external/pure
+	url = https://github.com/sindresorhus/pure.git
+[submodule "fasd/external"]
+	path = .zsh/.zprezto/modules/fasd/external
+	url = https://github.com/clvv/fasd.git
+[submodule "external/async"]
+	path = .zsh/.zprezto/modules/prompt/external/async
+	url = https://github.com/mafredri/zsh-async.git
+[submodule "external/powerlevel10k"]
+	path = .zsh/.zprezto/modules/prompt/external/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k.git
+	shallow = true
+[submodule "pmodules/zsh-z"]
+	path = .zsh/.zprezto/pmodules/zsh-z
+	url = https://github.com/agkozak/zsh-z.git

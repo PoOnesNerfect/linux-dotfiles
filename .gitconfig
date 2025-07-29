@@ -1,0 +1,37 @@
+[user]
+	name = Jack Lee
+	email = leejac@microsoft.com
+
+[credential]
+	helper = /mnt/c/Users/leejac/bin/git-credential-manager.exe
+
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+
+[include]
+    path = .config/delta/themes.gitconfig
+
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    navigate = true
+	dark = false
+	line-numbers = true
+	# side-by-side = true
+    # syntax-theme = GitHub
+	tabs = 4
+
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[rerere]
+	enabled = true
+	autoupdate = true

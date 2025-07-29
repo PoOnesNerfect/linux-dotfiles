@@ -1,0 +1,101 @@
+add_newline = true
+format = """
+$username$hostname$shlvl$directory$cmd_duration\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$git_metrics\
+$package\
+$dart\
+$java\
+$nodejs\
+$ocaml\
+$rust\
+$terraform
+$time\
+$character"""
+
+[username]
+style_user = "white bold"
+style_root = "white bold"
+format = "[$user]($style) "
+disabled = false
+show_always = true
+
+[directory]
+truncation_length = 5
+truncation_symbol = "…/"
+truncate_to_repo = false
+fish_style_pwd_dir_length = 1
+
+[cmd_duration]
+min_time = 1
+style = "bold yellow"
+format = "took [$duration]($style) "
+
+[gcloud]
+format = "on [$symbol $project (\\($region\\))]($style)"
+style = "#00a8ff bold"
+[gcloud.region_aliases]
+us-central1 = "uc1"
+asia-northeast1 = "an1"
+
+[kubernetes]
+# format = "on ⛵ ($user on )($cluster in )[$context \\($namespace\\)](#f07d00 bold) "
+format = "on [⛵ $context (\\($namespace\\))](#f07d00 bold) "
+disabled = false
+[kubernetes.context_aliases]
+"gke_dev-clusters-280515_us-west1-a_dev2" = "dev2"
+"gke_functional-testing-295203_us-west1-a_qa" = "qa"
+"gke_cbk-269318_us-central1-c_stress-test" = "stress-test"
+"gke_functional-testing-295203_us-east1-b_qa-us-east-1" = "qa-east-1"
+"gke_production-networks_us-east1-b_cbk-production" = "prod-net"
+"gke_test-networks-295203_us-east1-b_cbk-testnet" = "test-net"
+
+[docker_context]
+format = "via [🐋 $context](blue bold)"
+disabled = true
+
+[git_branch]
+format = "\non [$symbol$branch(:$remote_branch)]($style) "
+style = "#cc79ff bold"
+
+[git_status]
+disabled = true
+conflicted = '🏳'
+up_to_date = '✓'
+untracked = '🤷'
+stashed = '📦'
+modified = '📝'
+staged = '[++\($count\)](green)'
+renamed = '👅'
+deleted = '🗑'
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+style = 'bold yellow'
+
+[git_commit]
+disabled = false
+commit_hash_length = 7
+only_detached = false
+
+[git_metrics]
+disabled = false
+format = "([+$added]($added_style) )([-$deleted]($deleted_style))"
+
+[package]
+format = "is [$symbol$version]($style) "
+
+[time]
+disabled = false
+use_12hr = true
+format = """[$time]($style) """
+style = "yellow"
+utc_time_offset = "local"
+time_range = "00:00:00-23:59:59"
+
+[character]
+error_symbol = "[✗](bold red) "
+vimcmd_symbol = "[i](bold white)"

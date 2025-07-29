@@ -1,0 +1,5 @@
+[config]
+# compact = true
+
+[variables]
+# timestamp = ""

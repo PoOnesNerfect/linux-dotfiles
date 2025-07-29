@@ -1,0 +1,148 @@
+# aliases
+alias ls="exa"
+alias lt="exa -ah --tree --level=2"
+alias lta="exa -ah --tree"
+
+alias cat="bat"
+alias grep="rg"
+
+#
+# zellij
+#
+
+# attach to session
+alias za="zellij a"
+alias zl="zellij ls"
+
+# new session with layout
+function zz {
+    zellij -n $1 -s $1
+}
+
+# kill session
+alias zk="zellij k"
+
+# kill all sessions
+alias zka="zellij ka"
+
+#
+# just
+#
+alias j="just"
+alias jl="just --list --unsorted"
+
+#
+# rust
+#
+alias cb="cargo build"
+alias cr="cargo run"
+alias ct="cargo test"
+alias cu="cargo interactive-update"
+alias ci="cargo info"
+alias cis="cargo search"
+
+#
+# clorinde cli
+#
+alias cll="clorinde live"
+
+#
+# markdown server
+#
+alias md="markserv"
+
+#
+# git
+#
+alias ggg='alias | grep git | fzf'
+
+alias ga='git add'
+alias gaa="git add -A"
+alias gcn="git commit --no-edit"
+
+# git log fzf
+autoload -U fzf_git_commits;
+alias glf="fzf_git_commits"
+
+# git branch fzf
+autoload -U fzf_git_branches;
+alias gbf="fzf_git_branches"
+
+# git log graph
+alias glg='git log --topo-order --graph --pretty=format:"$_git_log_oneline_format" --exclude="subrepo/*" --exclude="refs/subrepo/*" --exclude="refs/original/refs/heads/subrepo/*" --exclude="refs/heads/subrepo/*" --all'
+alias glG='git log --topo-order --graph --pretty=format:"$_git_log_medium_format" --exclude="subrepo/*" --exclude="refs/subrepo/*" --exclude="refs/original/refs/heads/subrepo/*" --exclude="refs/heads/subrepo/*" --all'
+alias gld='git log --topo-order --stat --patch --pretty=format:"$_git_log_medium_format" -U20'
+alias glD='DELTA_FEATURES=+side-by-side git log --topo-order --stat --patch --pretty=format:"$_git_log_medium_format" -U20 --full-diff'
+
+alias gid='git diff --no-ext-diff --cached -U20'
+alias giD='DELTA_FEATURES=+side-by-side git diff --no-ext-diff --cached -U20'
+alias gwd='git diff --no-ext-diff -U20'
+alias gwD='DELTA_FEATURES=+side-by-side git diff --no-ext-diff -U20'
+alias gfh='git log --follow --topo-order --stat --patch --pretty=format:"$_git_log_medium_format" --'
+alias gwr='git restore'
+alias gsu="git stash push"
+alias gcR='git revert'
+alias gcr='git reset "HEAD^"'
+
+#
+# kubectl
+#
+alias k="kubectl"
+alias ka="k apply"
+alias kd="k delete"
+alias kak="k apply -k ."
+alias kl="k logs"
+alias kf="sudo kubefwd"
+alias kc="kubectx"
+alias kn="kubens"
+
+#
+# helmfile
+#
+alias hf="helmfile"
+alias hfa="helmfile apply -f helmfile.yaml"
+
+#
+# minikube
+#
+alias mk="minikube"
+alias mks="minikube start"
+alias mkS="minikube stop"
+alias mkd="minikube delete"
+
+#
+# docker
+#
+alias dk="docker"
+alias dkc="docker-compose"
+alias dkl="docker logs"
+
+# lazydocker
+alias lzd="lazydocker"
+
+#
+# date aliases
+#
+alias ymd="date '+%Y-%m-%d'"
+alias ymdhms="date '+%Y-%m-%d %H:%M:%S'"
+
+#
+# replace all in files
+#
+alias raf="replace_all_in_files"
+
+#
+# npm
+#
+alias nr="npm run"
+alias nrd="npm run dev"
+alias nrb="npm run build"
+alias nrt="npm run test"
+alias ni="npm install"
+alias nu="ncu -i"
+
+
+#
+# python
+#
+alias python3="python3.11"

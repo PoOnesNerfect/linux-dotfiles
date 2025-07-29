@@ -1,0 +1,84 @@
+#!/usr/bin/env zsh
+
+function fzf_git_commits() {
+	local -r git_log=$(cat <<-EOF
+		git log --topo-order --graph --color --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d" --exclude="subrepo/*" --exclude="refs/subrepo/*" --exclude="refs/original/refs/heads/subrepo/*" --exclude="refs/heads/subrepo/*"
+	EOF
+	)
+
+	local -r git_log_all=$(cat <<-EOF
+		git log --topo-order --all --graph --color --format="%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d" --exclude="subrepo/*" --exclude="refs/subrepo/*" --exclude="refs/original/refs/heads/subrepo/*" --exclude="refs/heads/subrepo/*"
+	EOF
+	)
+
+
+	local get_hash
+	read -r -d '' get_hash <<-'EOF'
+		echo {} | grep -o "[a-f0-9]\{7\}" | sed -n "1p"
+	EOF
+
+	local -r git_show="[[ \$($get_hash) != '' ]] && git show --color \$($get_hash)"
+	local -r git_show_subshell=$(cat <<-EOF
+		[[ \$($get_hash) != '' ]] && sh -c "git -c delta.paging=always log --topo-order --stat --patch --full-diff --color -1 -U20 \$($get_hash)"
+	EOF
+	)
+
+	local -r git_diff_subshell=$(cat <<-EOF
+		[[ \$($get_hash) != '' ]] && sh -c "git -c delta.paging=always diff --color -U20 \$($get_hash)..HEAD"
+	EOF
+	)
+
+	local -r git_diffstat_subshell=$(cat <<-EOF
+		[[ \$($get_hash) != '' ]] && sh -c "git -c delta.paging=always diff --color --stat \$($get_hash)..HEAD"
+	EOF
+	)
+
+	local -r git_checkout="[[ \$($get_hash) != '' ]] && git checkout \$($get_hash)"
+	local -r git_reset="[[ \$($get_hash) != '' ]] && git reset \$($get_hash)"
+	local -r git_rebase_interactive="[[ \$($get_hash) != '' ]] && git rebase --interactive \$($get_hash)"
+	local -r git_cherry_pick="[[ \$($get_hash) != '' ]] && git cherry-pick \$($get_hash)"
+
+	local -r header=$(cat <<-EOF
+		> ENTER to display commit diff | CTRL-H for summary and CTRL-L to see the diff against HEAD
+	EOF
+	)
+
+	local -r header_branch=$(cat <<-EOF
+		$header
+		> CTRL-B to switch to All Commits mode
+		> CTRL-O to checkout the commit | CTRL-R to reset to the commit
+	EOF
+	)
+
+	local -r header_all=$(cat <<-EOF
+		$header
+		> CTRL-B to switch to Branch Commits mode
+		> CTRL-P to cherry pick
+	EOF
+	)
+
+	local -r branch_prompt='Branch > '
+	local -r all_prompt='All > '
+
+	local -r mode_all="change-prompt($all_prompt)+reload($git_log_all)+change-header($header_all)+unbind(ctrl-o)+unbind(ctrl-r)+rebind(ctrl-p)"
+	local -r mode_branch="change-prompt($branch_prompt)+reload($git_log)+change-header($header_branch)+rebind(ctrl-o)+rebind(ctrl-r)+unbind(ctrl-p)"
+
+	eval "$git_log" | fzf \
+		--ansi \
+		--reverse \
+		--no-sort \
+		--prompt="$branch_prompt" \
+		--header-first \
+		--header="$header_branch" \
+		--preview="$git_show" \
+		--bind='start:unbind(ctrl-p)' \
+		--bind="ctrl-b:transform:[[ \$FZF_PROMPT =~ '$branch_prompt' ]] && echo '$mode_all' || echo '$mode_branch'" \
+		--bind="enter:execute($git_show_subshell)" \
+		--bind="ctrl-h:execute($git_diffstat_subshell)" \
+		--bind="ctrl-l:execute($git_diff_subshell)" \
+		--bind="ctrl-o:execute($git_checkout)+abort" \
+		--bind="ctrl-r:execute($git_reset)+abort" \
+		--bind="ctrl-p:execute($git_cherry_pick)+abort" \
+		--bind='alt-u:preview-half-page-up' \
+		--bind='alt-d:preview-half-page-down'
+}

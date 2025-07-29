@@ -1,0 +1,17 @@
+{
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+    "explorer.confirmDelete": false,
+    "workbench.colorTheme": "GitHub Light",
+    "editor.wordWrap": "on",
+    "terminal.external.windowsExec": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Alacritty\\Alacritty",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.useWSL": true,
+    "vscode-neovim.neovimExecutablePaths.linux": "/opt/nvim-linux-x86_64/bin/nvim",
+    "editor.lineNumbers": "relative",
+    "editor.cursorBlinking": "solid"
+}

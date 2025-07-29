@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh
+
+function fzf_git_branches() {
+	local -r git_branches="git branch --all --color --format=$'%(HEAD) %(color:yellow)%(refname:short)\t%(color:green)%(committerdate:short)\t%(color:blue)%(subject)' | column -tx -s=$'\t'"
+	local -r get_selected_branch='echo {} | sed "s/^[* ]*//" | awk "{print \$1}"'
+	local -r git_log="git log \$($get_selected_branch) --topo-order --graph --color --format='%C(white)%h - %C(green)%cs - %C(blue)%s%C(red)%d'"
+	local -r git_diff="git diff --color -U20 \$(git branch --show-current)..\$($get_selected_branch)"
+	local -r git_show_subshell=$(cat <<-EOF
+		[[ \$($get_selected_branch) != '' ]] && sh -c "git -c delta.paging=always log --topo-order --stat --patch --full-diff --color -U20 \$($get_selected_branch)"
+	EOF
+	)
+	local -r git_diff_subshell=$(cat <<-EOF
+		[[ \$($get_selected_branch) != '' ]] && sh -c "git -c delta.paging=always diff -U20 --color \$($get_selected_branch)..HEAD"
+	EOF
+	)
+	local -r git_diffstat_subshell=$(cat <<-EOF
+		[[ \$($get_selected_branch) != '' ]] && sh -c "git diff --stat --color \$($get_selected_branch)..HEAD | less -R"
+	EOF
+	)
+	local -r header=$(cat <<-EOF
+	> ALT-M to merge with current * branch | ALT-R to rebase with current * branch
+	> CTRL-O to checkout the branch
+	> ALT-X to delete the merged local branch
+	> ENTER to open the commit diff | CTRL-H for summary and CTRL-L to see the diff against HEAD
+	EOF
+	)
+
+	eval "$git_branches" \
+	| fzf \
+		--ansi \
+		--reverse \
+		--no-sort \
+		--preview-label '[ Commits ]' \
+		--preview "$git_log" \
+		--header-first \
+		--header="$header" \
+		--bind="ctrl-o:execute(git checkout \$($get_selected_branch))" \
+		--bind="ctrl-o:+reload($git_branches)" \
+		--bind="alt-m:execute(git merge \$($get_selected_branch))" \
+		--bind="alt-r:execute(git rebase \$($get_selected_branch))" \
+		--bind="alt-x:execute(git branch --delete \$($get_selected_branch))" \
+		--bind="alt-x:+reload($git_branches)" \
+		--bind="enter:execute($git_show_subshell)" \
+		--bind="ctrl-h:execute($git_diffstat_subshell)" \
+		--bind="ctrl-l:execute($git_diff_subshell)" \
+		--bind='ctrl-f:change-preview-label([ Diff ])' \
+		--bind="ctrl-f:+change-preview($git_diff)" \
+		--bind='ctrl-i:change-preview-label([ Commits ])' \
+		--bind="ctrl-i:+change-preview($git_log)" \
+		--bind='alt-u:preview-half-page-up' \
+		--bind='alt-d:preview-half-page-down'
+}

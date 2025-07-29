@@ -1,0 +1,8 @@
+\.DS_Store
+README.md
+\.git
+\.gitignore
+pkgs
+\.gitmodules
+\.gitattributes
+justfile

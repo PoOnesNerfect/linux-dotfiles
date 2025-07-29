@@ -1,0 +1,59 @@
+# set gcloud config from env
+# autoload -U add-zsh-hook
+set_gcloud_config() {
+  if [ -n "$CURRENT_GCLOUD_CONFIG" ]; then
+    if [ -n "$GCLOUD_CONFIG" ]; then
+      if [ "$CURRENT_GCLOUD_CONFIG" != "$GCLOUD_CONFIG" ]; then
+        gcloud config configurations activate $GCLOUD_CONFIG
+        export CURRENT_GCLOUD_CONFIG=$GCLOUD_CONFIG
+      fi
+    else
+      unset CURRENT_GCLOUD_CONFIG
+    fi
+  else
+    if [ -n "$GCLOUD_CONFIG" ]; then
+      gcloud config configurations activate $GCLOUD_CONFIG
+      export CURRENT_GCLOUD_CONFIG=$GCLOUD_CONFIG
+    fi
+  fi
+}
+add-zsh-hook chpwd set_gcloud_config
+
+# set kube context from env
+# autoload -U add-zsh-hook
+set_k_ctx() {
+  if [ -n "$CURRENT_KUBECTL_CONTEXT" ]; then
+    if [ -n "$KUBECTL_CONTEXT" ]; then
+      if [ "$CURRENT_KUBECTL_CONTEXT" != "$KUBECTL_CONTEXT" ]; then
+        kubectl config use-context $KUBECTL_CONTEXT
+        export CURRENT_KUBECTL_CONTEXT=$KUBECTL_CONTEXT
+      fi
+    else
+      unset CURRENT_KUBECTL_CONTEXT
+    fi
+  else
+    if [ -n "$KUBECTL_CONTEXT" ]; then
+      kubectl config use-context $KUBECTL_CONTEXT
+      export CURRENT_KUBECTL_CONTEXT=$KUBECTL_CONTEXT
+    fi
+  fi
+}
+add-zsh-hook chpwd set_k_ctx
+
+# replace all in files (file_extension, original, replace)
+function replace_all_in_files() {
+  echo "find . -name '*.$1' -exec sed -i '' -e 's/$2/$3/g' {} \;"
+  sh -c "find . -name '*.$1' -exec sed -i '' -e 's/$2/$3/g' {} \;"
+}
+autoload -Uz replace_all_in_files
+
+#
+# Docker clean
+#
+function docker-clean {
+  docker rm $(docker ps -a -q)
+  docker rmi $(docker images -q)
+  docker volume rm $(docker volume ls |awk '{print $2}')
+  rm -rf ~/Library/Containers/com.docker.docker/Data/*
+}
+

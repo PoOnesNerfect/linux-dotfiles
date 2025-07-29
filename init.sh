@@ -125,3 +125,6 @@ chmod +x ./init-zsh.zsh
 ./init-zsh.zsh
 
 stow .
+
+cd ~
+lesskey

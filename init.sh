@@ -6,22 +6,10 @@ git submodule update --init --recursive
 # zsh
 sudo apt install zsh -y
 
-# docker
-sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-apt-cache policy docker-ce
-sudo apt install docker-ce -y
-sudo usermod -aG docker ${USER}
-su - ${USER}
-
-# docker-compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-
 # kubectl
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+rm -f kubectl
 
 # rust
 curl --proto '=https' --tlsv1.3 https://sh.rustup.rs -sSf | sh
@@ -55,7 +43,7 @@ sudo curl -fsSL https://fnm.vercel.app/install | bash
 
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+cd ~/.fzf && ./install
 
 # postgresql 
 sudo apt install postgresql postgresql-contrib -y
@@ -63,6 +51,7 @@ sudo apt install postgresql postgresql-contrib -y
 #
 # Cargo Packages
 #
+. "$HOME/.cargo/env"
 
 # bat
 cargo install --locked bat
@@ -121,10 +110,9 @@ if [ -f ../.zshrc ]; then
 fi
 
 chsh -s $(which zsh)
-chmod +x ./init-zsh.zsh
-./init-zsh.zsh
+chmod +x ./scripts/init-zsh.zsh
+./scripts/init-zsh.zsh
 
 stow .
 
-cd ~
-lesskey
+cd && lesskey

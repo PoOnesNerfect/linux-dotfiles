@@ -141,8 +141,7 @@ export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/opt/microsoft/servicefabric/bin/Fabric/Fabric.Code/"
 
 # pgrx
-export PGRX_HOME="/home/leejac/projects/work/pgrx"
-
+export PGRX_HOME="/home/leejac/pgrx"
 
 #
 # nvim

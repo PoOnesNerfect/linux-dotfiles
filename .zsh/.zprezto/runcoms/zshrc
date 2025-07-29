@@ -128,17 +128,6 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 # [Install and Set Up kubectl on macOS | Kubernetes](https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/#enable-shell-autocompletion)
 source <(kubectl completion zsh)
 
-# opam configuration
-[[ ! -r /Users/jacklee/.opam/opam-init/init.zsh ]] || source /Users/jacklee/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
-
-#
-# bun
-#
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-# bun completions
-[ -s "/Users/jacklee/.bun/_bun" ] && source "/Users/jacklee/.bun/_bun"
-
 # Wasmer
 export WASMER_DIR="/Users/jacklee/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"

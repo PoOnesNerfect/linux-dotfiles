@@ -30,14 +30,16 @@ source $HOME/.cargo/env
 # stow
 sudo apt -y install stow
 
+# starship
+curl -sS https://starship.rs/install.sh | sh
+
 # nvim
 if lsb_release -r | grep '20.04'; then
     curl -LO https://github.com/neovim/neovim-releases/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz
 else
     curl -LO https://github.com/neovim/neovim/releases/download/v0.11.3/nvim-linux-x86_64.tar.gz
 fi
-tar xzvf nvim-linux-x86_64.tar.gz
-sudo mv nvim-linux-x86_64/bin/nvim /usr/local/bin/
+sudo tar xzvf nvim-linux-x86_64.tar.gz -C /opt/
 rm nvim-linux-x86_64.tar.gz
 
 # lazydocker
@@ -110,10 +112,18 @@ cat >> ~/.gitconfig << 'EOF'
     autoupdate = true
 EOF
 
-stow .
+# if exists, then backup
+if [ -f ../.zshenv ]; then
+    mv ../.zshenv ../.zshenv.bak
+fi
+if [ -f ../.zshrc ]; then
+    mv ../.zshrc ../.zshrc.bak
+fi
 
 chsh -s $(which zsh)
 chmod +x ./init-zsh.zsh
-source ./init-zsh.zsh
+./init-zsh.zsh
+
+stow .
 
 zsh

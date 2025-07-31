@@ -46,9 +46,13 @@ vim.api.nvim_create_autocmd("User", {
     vim.keymap.set({ "n", "x" }, "gi", "<Cmd>call VSCodeNotify('editor.action.goToImplementation')<CR>")
     vim.keymap.set({ "n", "x" }, "gs", "<Cmd>call VSCodeNotify('workbench.action.showAllSymbols')<CR>")
     vim.keymap.set({ "n", "x" }, "gD", "<Cmd>call VSCodeNotify('editor.action.revealDefinitionAside')<CR>")
-    vim.keymap.set({ "n", "x" }, "<leader>d", "<Cmd>call VSCodeNotify('editor.action.peekDefinition')<CR>")
     vim.keymap.set({ "n", "x" }, "<leader>k", "<Cmd>call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>")
     vim.keymap.set({ "n", "x" }, "gh", "<Cmd>call VSCodeNotify('editor.action.showDefinitionPreviewHover')<CR>")
+
+    -- next/prev diagnostics
+    vim.keymap.set({ "n", "x" }, "g]", "<Cmd>call VSCodeNotify('editor.action.marker.nextInFiles')<CR>")
+    vim.keymap.set({ "n", "x" }, "g[", "<Cmd>call VSCodeNotify('editor.action.marker.prevInFiles')<CR>")
+    vim.keymap.set({ "n", "x" }, "<leader>d", "<Cmd>call VSCodeNotify('workbench.actions.view.problems')<CR>")
 
     vim.keymap.set({ "n", "x" }, "<leader>a", "<Cmd>call VSCodeNotify('editor.action.quickFix')<CR>")
   

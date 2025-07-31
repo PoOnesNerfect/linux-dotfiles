@@ -117,8 +117,8 @@ keybinds clear-defaults=true {
         bind "Alt g" { SwitchToMode "locked"; }
         bind "Alt i" { GoToPreviousTab; }
         bind "Alt o" { GoToNextTab; }
-        bind "Ctrl j" { MoveFocus "down"; }
-        bind "Ctrl k" { MoveFocus "up"; }
+        bind "Alt j" { MoveFocus "down"; }
+        bind "Alt k" { MoveFocus "up"; }
         bind "Alt h" { MoveFocus "left"; }
         bind "Alt l" { MoveFocus "right"; }
         bind "Ctrl n" { NewPane; }

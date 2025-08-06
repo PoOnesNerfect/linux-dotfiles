@@ -47,6 +47,11 @@ function replace_all_in_files() {
 }
 autoload -Uz replace_all_in_files
 
+function aliases() {
+    alias | rg "$@" | fzf
+}
+autoload -Uz aliases
+
 #
 # Docker clean
 #
@@ -56,4 +61,5 @@ function docker-clean {
   docker volume rm $(docker volume ls |awk '{print $2}')
   rm -rf ~/Library/Containers/com.docker.docker/Data/*
 }
+
 

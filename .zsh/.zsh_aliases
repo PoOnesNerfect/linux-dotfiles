@@ -5,6 +5,7 @@ alias lta="exa -ah --tree"
 
 alias cat="bat"
 alias grep="rg"
+alias al="aliases"
 
 #
 # zellij

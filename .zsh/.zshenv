@@ -1,1 +1,0 @@
-/home/leejac/linux-dotfiles/.zsh/.zprezto/runcoms/zshenv

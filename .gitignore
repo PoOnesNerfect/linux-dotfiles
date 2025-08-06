@@ -18,3 +18,11 @@
 .config/karabiner/automatic_backups/
 
 .config/tracy/
+
+# Symlinked from .zsh/.zprezto/uncoms
+.zsh/.zshrc
+.zsh/.zshenv
+.zsh/.zprofile
+.zsh/.zlogin
+.zsh/.zlogout
+.zsh/.zpreztorc

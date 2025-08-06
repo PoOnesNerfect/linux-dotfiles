@@ -7,11 +7,37 @@
     "workbench.colorTheme": "GitHub Light",
     "editor.wordWrap": "on",
     "terminal.external.windowsExec": "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Alacritty\\Alacritty",
+    
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
     "vscode-neovim.useWSL": true,
     "vscode-neovim.neovimExecutablePaths.linux": "/opt/nvim-linux-x86_64/bin/nvim",
     "editor.lineNumbers": "relative",
-    "editor.cursorBlinking": "solid"
+    "editor.cursorBlinking": "solid",
+    "editor.occurrencesHighlight": "off",
+    "makefile.configureOnOpen": true,
+    "editor.formatOnSave": true,
+    "remote.SSH.remotePlatform": {
+        "leejac_2004": "linux"
+    },
+    "wavespace.defaultExtensions": {
+        "leejac_2004": [
+            "ms-vscode.cpptools",
+            "rust-lang.rust-analyzer",
+            "ms-vscode.live-server"
+        ]
+    },
+    "remote.SSH.localServerDownload": "auto",
+    "terminal.integrated.localEchoExcludePrograms": [
+        "vim",
+        "vi",
+        "nano",
+        "tmux",
+        "nvim"
+    ],
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "explorer.confirmDragAndDrop": false,
+    "workbench.editorLargeFileConfirmation": 20,
+    "editor.minimap.showSlider": "always"
 }

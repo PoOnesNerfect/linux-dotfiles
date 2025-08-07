@@ -133,7 +133,21 @@ export WASMER_DIR="/Users/jacklee/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
 # Browser via Windows from WSL
-export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+is_wsl() {
+  # Check for WSL environment variable (WSL2)
+  [[ -n "${WSL_DISTRO_NAME}" ]] && return 0
+  
+  # Check for Microsoft in kernel version (WSL1 and WSL2)
+  grep -qi microsoft /proc/version 2>/dev/null && return 0
+  
+  # Check for WSL in kernel release
+  grep -qi wsl /proc/sys/kernel/osrelease 2>/dev/null && return 0
+  
+  return 1
+}
+if is_wsl; then
+  export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
+fi
 
 # # Rust set build target manually
 # export CARGO_BUILD_TARGET="x86_64-unknown-linux-gnu"

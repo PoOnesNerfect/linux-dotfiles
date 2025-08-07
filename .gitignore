@@ -5,6 +5,7 @@
 **/.zsh_history
 **/.zsh_sessions
 **/.zcompdump
+**/.zcompdump.*
 
 .config/k9s/config.yml
 
